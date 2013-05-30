@@ -13,10 +13,11 @@ function Macaroni (initSt) {
     if (typeof Object.freeze === "undefined")
         Object.freeze = _.identity;
 
-    var st = Object.freeze(initSt || {}),
-        views = new WeakMap();
+    var st     = Object.freeze(initSt || {}),
+        views  = new WeakMap(),
+        views2 = new WeakMap();
 
-    var exported = _.module({}, on, view);
+    var exported = _.module({}, on, before, after);
 
     function on (ev, containa, sel, f) {
         if (_.size(arguments) < 4)
@@ -27,17 +28,23 @@ function Macaroni (initSt) {
             if (changes) st = _.merge(st, _.mapmap(changes, function (change, field) {
                 var g = change[0], args = _.slice(change, 1), view = views.get(g);
                 if (view && view[field])
-                    _.apply(_.partial(view[field], st, st[field]), args);
+                    _.apply(_.partial(view[field], st[field]), args);
                 var v = _.apply(_.partial(g, st[field]), args);
                 if (_.isObject(v)) Object.freeze(v);
+                if (views2[field])
+                    views2[field](_.assoc(st, field, v), st[field]);
                 return v;
             }));
             Object.freeze(st);
         }));
     }
 
-    function view (scoreF, field, f) {
+    function before (scoreF, field, f) {
         views.set(scoreF, _.assoc((views.get(scoreF) || {}), field, f));
+    }
+
+    function after (field, f) {
+        views2.set(field, f);
     }
 
     function shorthand (module, ev) {

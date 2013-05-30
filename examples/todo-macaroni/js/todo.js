@@ -3,7 +3,8 @@
 
     var ENTER_KEY = 13;
     var TODO_TEMPLATE = $("#todo-template").html();
-    var M = Macaroni({todos: [], id:0, show_mode: "show_all"});
+    var M = Macaroni(JSON.parse(localStorage.getItem("macaroni-todo"))
+                     || {todos: [], id:0, show_mode: "show_all"});
 
 
 
@@ -141,22 +142,28 @@
 
     /* View*UI */
 
-    M.view(_.concat, "todos", function (st, todos, todo) {
-        if (filters[st.show_mode](todo)) render_todo(todo);
-        update_footer(_.concat(todos, todo));
+    M.before(_.concat, "todos", function (todos, todo) {
+        render_todo(todo);
     });
 
 
 
 
 
+    M.after("todos", function (st) {
+        update_footer(st.todos);
+        localStorage.setItem("macaroni-todo", JSON.stringify(st));
+    });
 
-    M.view(_.reject, "todos", function (st, todos, f) {
+
+
+
+
+    M.before(_.reject, "todos", function (todos, f) {
         _.each(todos, function (todo) {
             if (f(todo))
                 $("#todo-list [data-id="+ todo.id + "]").remove();
         });
-        update_footer(_reject(todos, f));
     });
 
 
@@ -164,11 +171,10 @@
 
 
 
-    M.view(update, "todos", function (st, todos, id, patcher) {
+    M.before(update, "todos", function (todos, id, patcher) {
         var todo = patcher(_.find(todos, function (td) { return td.id === id; }));
         var $el = $("#todo-list [data-id=" + id + "]")
                 .html(_.template(TODO_TEMPLATE, todo));
-        update_footer(update(todos, id, patcher));
     });
 
 
@@ -176,12 +182,11 @@
 
 
 
-    M.view(toggle_complete, "todos", function (st, todos, id, bool) {
+    M.before(toggle_complete, "todos", function (todos, id, bool) {
         var $el = $("#todo-list [data-id=" + id + "]");
         if (bool)
             $el.addClass("completed");
         else $el.removeClass("completed");
-        update_footer(toggle_complete(todos, id, bool));
     });
 
 
@@ -189,13 +194,13 @@
 
 
 
-    M.view(change_mode, "show_mode", function (st, old_mode, mode) {
+    M.after("show_mode", function (st, old_mode) {
         $("#todo-list").html("");
-        _.each(_.filter(st.todos, filters[mode]), function (todo) {
+        _.each(_.filter(st.todos, filters[st.show_mode]), function (todo) {
             render_todo(todo);
         });
         $("#" + old_mode).removeClass("selected");
-        $("#" + mode).addClass("selected");
+        $("#" + st.show_mode).addClass("selected");
     });
 
 

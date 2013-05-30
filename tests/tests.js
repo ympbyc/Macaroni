@@ -27,15 +27,22 @@ module("pasta");
         });
     });
 
-    P.view(_.concat, 'notes', function (coll, x) {
-        test("view", function () {
+    P.before(_.concat, 'notes', function (coll, x) {
+        test("before", function () {
             de(coll, ["aaa", "bbb"], "state value is passed in");
             se(x, "ccc", "argument is passed in");
         });
         $('<div class="note">').text(x.text).appendTo("body");
     });
 
-    P.view(_.identity, 'notes', function (coll) {
+    P.after("notes", _.once(function (st, old_val) {
+        test("after", function () {
+            de(st.notes, ["aaa", "bbb", "ccc"], "after receives modified state");
+            de(old_val, ["aaa", "bbb"], "after receives old value");
+        });
+    }));
+
+    P.before(_.identity, 'notes', function (coll) {
         test("state", function () {
             de(coll, ["aaa", "bbb", "ccc"], "note successfully appended");
         });
