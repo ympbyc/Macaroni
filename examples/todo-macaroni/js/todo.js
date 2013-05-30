@@ -5,11 +5,16 @@
     var TODO_TEMPLATE = $("#todo-template").html();
     var M = Macaroni({todos: [], id:0, show_mode: "show_all"});
 
+
+
     function todo (id, title, completed) {
         return { title:     title,
                  completed: completed || false,
                  id: id };
     }
+
+
+
 
     function update (xs, id, f) {
         return _.just_map(xs, function (x) {
@@ -18,9 +23,15 @@
         });
     }
 
+
+
+
     function toggle_complete (xs, id, bool) {
         return update(xs, id, _.flippar(_.conj, {completed: bool}));
     }
+
+
+
 
 
     /* Controller*Model */
@@ -41,9 +52,14 @@
 
 
 
+
+
     M.click("#clear-completed", function () {
         return { todos: [_.reject, _.flippar(_.at, "completed")] };
     });
+
+
+
 
 
 
@@ -54,11 +70,17 @@
 
 
 
+
+
+
     M.dblclick("#todo-list", "label", function (e) {
         $(e.target).parents("li")
             .addClass("editing")
             .find(".edit").focus();
     });
+
+
+
 
 
 
@@ -75,9 +97,15 @@
 
 
 
+
+
+
     M.on("blur", "#todo-list", ".edit", function () {
         //to implement
     });
+
+
+
 
 
 
@@ -85,6 +113,9 @@
         var id = parseInt($(e.target).parents("li").find(".edit").attr("data-id"));
         return { todos: [toggle_complete, id, $(e.target).is(":checked")] };
     });
+
+
+
 
 
 
@@ -96,9 +127,15 @@
 
 
 
+
+
+
     M.on("routechange", document, function (e, route) {
         return { show_mode: [change_mode, route] };
     });
+
+
+
 
 
 
@@ -108,6 +145,9 @@
         if (filters[st.show_mode](todo)) render_todo(todo);
         update_footer(_.concat(todos, todo));
     });
+
+
+
 
 
 
@@ -121,12 +161,19 @@
 
 
 
+
+
+
     M.view(update, "todos", function (st, todos, id, patcher) {
         var todo = patcher(_.find(todos, function (td) { return td.id === id; }));
         var $el = $("#todo-list [data-id=" + id + "]")
                 .html(_.template(TODO_TEMPLATE, todo));
         update_footer(update(todos, id, patcher));
     });
+
+
+
+
 
 
     M.view(toggle_complete, "todos", function (st, todos, id, bool) {
@@ -136,6 +183,10 @@
         else $el.removeClass("completed");
         update_footer(toggle_complete(todos, id, bool));
     });
+
+
+
+
 
 
     M.view(change_mode, "show_mode", function (st, old_mode, mode) {
@@ -148,6 +199,10 @@
     });
 
 
+
+
+
+
     function render_todo (todo) {
         $("<li>").addClass(todo.completed ? "completed" : "")
             .attr("data-id", todo.id)
@@ -156,9 +211,17 @@
     }
 
 
+
+
+
+
     function change_mode (st, mode) {
         return mode;
     }
+
+
+
+
 
 
     //adjust numbers
@@ -173,11 +236,20 @@
             $("#clear-completed").hide();
     }
 
+
+
+
+
+
     var filters = {
         "show_all":      function (x) { return true; },
         "show_active":   function (x) { return ! x.completed; },
         "show_complete": function (x) { return x.completed; }
     };
+
+
+
+
 
     /* Router */
     Router({
