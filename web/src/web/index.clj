@@ -12,7 +12,7 @@ M.keyup('#new-todo', function (e) {
     if (e.which !== 13) return;
 
     var title = e.target.value;
-    return { todos: [_.concat, {title: title, completed: false}] }
+    return { todos: [_.concat, {title: title, completed: false}] };
 });
 
 
@@ -50,7 +50,11 @@ M.after('todos', function (state, old_todo) {
 ")
 
 (def menu
-  [:div#menu])
+  [:div#menu
+   [:a.page.btn-blue.btn {:href "#api"} "API"]
+   [:a.page.btn-blue.btn {:href "https://github.com/ympbyc/Macaroni"} "GitHub"]
+   [:a.page.btn-blue.btn {:href "https://github.com/ympbyc/Macaroni/archive/master.zip"} "Zip Download"]
+   [:a.page.btn-blue.btn {:href "http://ympbyc.github.io/Macaroni/examples/todo-macaroni/"} "Example"]])
 
 (defn html-head []
   [:head
@@ -81,7 +85,7 @@ M.after('todos', function (state, old_todo) {
       [:input#new-todo {:placeholder "What needs to be done?"}]
       [:ul#todo-list]
       [:script sample-js]]]
-    [:section
+    [:section#api
      [:h2 "API"]
      [:section
        [:h3 "Macaroni"]

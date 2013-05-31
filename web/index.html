@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Macaroni</title><link href="components/kraken/kraken.css" rel="stylesheet" /><link href="components/google-code-prettify/prettify.css" rel="stylesheet" /><link href="css/style.css" rel="stylesheet" /><script src="components/jquery/jquery.min.js"></script><script src="components/google-code-prettify/prettify.js"></script><script src="components/underscore/underscore-min.js"></script><script src="components/underscore-fix/underscore-fix.js"></script><script src="components/Macaroni/Macaroni.js"></script></head><body onload="prettyPrint()"><header><h1>Macaroni</h1><i>Pasta Short-circuited</i><div id="menu"></div></header><div id="content"><section><pre class="prettyprint">
+<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Macaroni</title><link href="components/kraken/kraken.css" rel="stylesheet" /><link href="components/google-code-prettify/prettify.css" rel="stylesheet" /><link href="css/style.css" rel="stylesheet" /><script src="components/jquery/jquery.min.js"></script><script src="components/google-code-prettify/prettify.js"></script><script src="components/underscore/underscore-min.js"></script><script src="components/underscore-fix/underscore-fix.js"></script><script src="components/Macaroni/Macaroni.js"></script></head><body onload="prettyPrint()"><header><h1>Macaroni</h1><i>Pasta Short-circuited</i><div id="menu"><a class="page btn-blue btn" href="#api">API</a><a class="page btn-blue btn" href="https://github.com/ympbyc/Macaroni">GitHub</a><a class="page btn-blue btn" href="https://github.com/ympbyc/Macaroni/archive/master.zip">Zip Download</a><a class="page btn-blue btn" href="http://ympbyc.github.io/Macaroni/examples/todo-macaroni/">Example</a></div></header><div id="content"><section><pre class="prettyprint">
 var M = Macaroni({ todos: [] });
 
 
@@ -7,7 +7,7 @@ M.keyup('#new-todo', function (e) {
     if (e.which !== 13) return;
 
     var title = e.target.value;
-    return { todos: [_.concat, {title: title, completed: false}] }
+    return { todos: [_.concat, {title: title, completed: false}] };
 });
 
 
@@ -32,7 +32,7 @@ M.keyup('#new-todo', function (e) {
     if (e.which !== 13) return;
 
     var title = e.target.value;
-    return { todos: [_.concat, {title: title, completed: false}] }
+    return { todos: [_.concat, {title: title, completed: false}] };
 });
 
 
@@ -48,7 +48,7 @@ M.before(_.concat, 'todos', function (todos, todo) {
 M.after('todos', function (state) {
     $('#todo-count').text(_.size(state.todos));
 });
-</script></div></section><section><h2>API</h2><section><h3>Macaroni</h3><div class="type"><span class="grey">Macaroni :: {} -> Macaroni</span></div><pre class="prettyprint">var M = Macaroni({ todos: [] });</pre></section><section><h3>on</h3><div class="type"><span class="grey">on :: String * jQuerySelector * jQuerySelector * (Event -> {[]}) -> undefined</span><br /><span class="grey">on :: String * jQuerySelector * (Event -> {[]}) -> undefined</span></div><pre class="prettyprint">
+</script></div></section><section id="api"><h2>API</h2><section><h3>Macaroni</h3><div class="type"><span class="grey">Macaroni :: {} -> Macaroni</span></div><pre class="prettyprint">var M = Macaroni({ todos: [] });</pre></section><section><h3>on</h3><div class="type"><span class="grey">on :: String * jQuerySelector * jQuerySelector * (Event -> {[]}) -> undefined</span><br /><span class="grey">on :: String * jQuerySelector * (Event -> {[]}) -> undefined</span></div><pre class="prettyprint">
 M.on('click', '#new-todo', function (e) {
      //       field: [function, arguments]
      return { todos: [_.concat, 'Say hello'] };
@@ -75,7 +75,7 @@ M.keyup('#new-todo', function (e) {
     if (e.which !== 13) return;
 
     var title = e.target.value;
-    return { todos: [_.concat, {title: title, completed: false}] }
+    return { todos: [_.concat, {title: title, completed: false}] };
 });
 
 
@@ -113,7 +113,11 @@ M.after('todos', function (state, old_todo) {
 &quot;)
 
 (def menu
-  [:div#menu])
+  [:div#menu
+   [:a.page.btn-blue.btn {:href &quot;#api&quot;} &quot;API&quot;]
+   [:a.page.btn-blue.btn {:href &quot;https://github.com/ympbyc/Macaroni&quot;} &quot;GitHub&quot;]
+   [:a.page.btn-blue.btn {:href &quot;https://github.com/ympbyc/Macaroni/archive/master.zip&quot;} &quot;Zip Download&quot;]
+   [:a.page.btn-blue.btn {:href &quot;http://ympbyc.github.io/Macaroni/examples/todo-macaroni/&quot;} &quot;Example&quot;]])
 
 (defn html-head []
   [:head
@@ -144,7 +148,7 @@ M.after('todos', function (state, old_todo) {
       [:input#new-todo {:placeholder &quot;What needs to be done?&quot;}]
       [:ul#todo-list]
       [:script sample-js]]]
-    [:section
+    [:section#api
      [:h2 &quot;API&quot;]
      [:section
        [:h3 &quot;Macaroni&quot;]
