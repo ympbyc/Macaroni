@@ -84,6 +84,7 @@ M.after('todos', function (state, old_todo) {
      [:div.demo
       [:input#new-todo {:placeholder "What needs to be done?"}]
       [:ul#todo-list]
+      [:div [:span#todo-count 0] " items"]
       [:script sample-js]]]
     [:section#api
      [:h2 "API"]

@@ -23,7 +23,7 @@ M.before(_.concat, 'todos', function (todos, todo) {
 M.after('todos', function (state) {
     $('#todo-count').text(_.size(state.todos));
 });
-</pre><div class="demo"><input id="new-todo" placeholder="What needs to be done?" /><ul id="todo-list"></ul><script>
+</pre><div class="demo"><input id="new-todo" placeholder="What needs to be done?" /><ul id="todo-list"></ul><div><span id="todo-count">0</span> items</div><script>
 var M = Macaroni({ todos: [] });
 
 
@@ -147,6 +147,7 @@ M.after('todos', function (state, old_todo) {
      [:div.demo
       [:input#new-todo {:placeholder &quot;What needs to be done?&quot;}]
       [:ul#todo-list]
+      [:div [:span#todo-count 0] &quot; items&quot;]
       [:script sample-js]]]
     [:section#api
      [:h2 &quot;API&quot;]
