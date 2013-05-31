@@ -1,0 +1,175 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Macaroni</title><link href="components/kraken/kraken.css" rel="stylesheet" /><link href="components/google-code-prettify/prettify.css" rel="stylesheet" /><link href="css/style.css" rel="stylesheet" /><script src="components/jquery/jquery.min.js"></script><script src="components/google-code-prettify/prettify.js"></script><script src="components/underscore/underscore-min.js"></script><script src="components/underscore-fix/underscore-fix.js"></script><script src="components/Macaroni/Macaroni.js"></script></head><body onload="prettyPrint()"><header><h1>Macaroni</h1><i>Pasta Short-circuited</i><div id="menu"></div></header><div id="content"><section><pre class="prettyprint">
+var M = Macaroni({ todos: [] });
+
+
+
+M.keyup('#new-todo', function (e) {
+    if (e.which !== 13) return;
+
+    var title = e.target.value;
+    return { todos: [_.concat, {title: title, completed: false}] }
+});
+
+
+
+M.before(_.concat, 'todos', function (todos, todo) {
+    $('#new-todo').val('');
+    $('&lt;li&gt;').text(todo.title)
+             .appendTo('#todo-list');
+});
+
+
+
+M.after('todos', function (state) {
+    $('#todo-count').text(_.size(state.todos));
+});
+</pre><div class="demo"><input id="new-todo" placeholder="What needs to be done?" /><ul id="todo-list"></ul><script>
+var M = Macaroni({ todos: [] });
+
+
+
+M.keyup('#new-todo', function (e) {
+    if (e.which !== 13) return;
+
+    var title = e.target.value;
+    return { todos: [_.concat, {title: title, completed: false}] }
+});
+
+
+
+M.before(_.concat, 'todos', function (todos, todo) {
+    $('#new-todo').val('');
+    $('<li>').text(todo.title)
+             .appendTo('#todo-list');
+});
+
+
+
+M.after('todos', function (state) {
+    $('#todo-count').text(_.size(state.todos));
+});
+</script></div></section><section><h2>API</h2><section><h3>Macaroni</h3><div class="type"><span class="grey">Macaroni :: {} -> Macaroni</span></div><pre class="prettyprint">var M = Macaroni({ todos: [] });</pre></section><section><h3>on</h3><div class="type"><span class="grey">on :: String * jQuerySelector * jQuerySelector * (Event -> {[]}) -> undefined</span><br /><span class="grey">on :: String * jQuerySelector * (Event -> {[]}) -> undefined</span></div><pre class="prettyprint">
+M.on('click', '#new-todo', function (e) {
+     //       field: [function, arguments]
+     return { todos: [_.concat, 'Say hello'] };
+});
+</pre></section><section><h3>before</h3><div class="type"><span class="grey">before :: Function * String * Function -> undefined</span></div><pre class="prettyprint">
+M.before(_.concat, 'todos', function (todos, todo) {
+     //do something with todo
+});
+</pre></section><section><h3>after</h3><div class="type"><span class="grey">after :: String * ({} * {} -> a) -> undefined</span></div><pre class="prettyprint">
+M.after('todos', function (state, old_todo) {
+     //do something with new state
+});
+</pre></section></section></div></body></html><!--(ns web.index
+  (require [hiccup.core :as h]
+           [hiccup.util :as hu])
+  (:gen-class))
+
+(def sample-js &quot;
+var M = Macaroni({ todos: [] });
+
+
+
+M.keyup('#new-todo', function (e) {
+    if (e.which !== 13) return;
+
+    var title = e.target.value;
+    return { todos: [_.concat, {title: title, completed: false}] }
+});
+
+
+
+M.before(_.concat, 'todos', function (todos, todo) {
+    $('#new-todo').val('');
+    $('&lt;li&gt;').text(todo.title)
+             .appendTo('#todo-list');
+});
+
+
+
+M.after('todos', function (state) {
+    $('#todo-count').text(_.size(state.todos));
+});
+&quot;)
+
+(def on-sample &quot;
+M.on('click', '#new-todo', function (e) {
+     //       field: [function, arguments]
+     return { todos: [_.concat, 'Say hello'] };
+});
+&quot;)
+
+(def before-sample &quot;
+M.before(_.concat, 'todos', function (todos, todo) {
+     //do something with todo
+});
+&quot;)
+
+(def after-sample &quot;
+M.after('todos', function (state, old_todo) {
+     //do something with new state
+});
+&quot;)
+
+(def menu
+  [:div#menu])
+
+(defn html-head []
+  [:head
+   [:meta {:charset &quot;utf-8&quot;}]
+   [:title &quot;Macaroni&quot;]
+   [:link {:rel  &quot;stylesheet&quot;
+           :href &quot;components/kraken/kraken.css&quot;}]
+   [:link {:rel &quot;stylesheet&quot;
+           :href &quot;components/google-code-prettify/prettify.css&quot;}]
+   [:link {:rel  &quot;stylesheet&quot;
+           :href &quot;css/style.css&quot;}]
+   [:script {:src &quot;components/jquery/jquery.min.js&quot;}]
+   [:script {:src &quot;components/google-code-prettify/prettify.js&quot;}]
+   [:script {:src &quot;components/underscore/underscore-min.js&quot;}]
+   [:script {:src &quot;components/underscore-fix/underscore-fix.js&quot;}]
+   [:script {:src &quot;components/Macaroni/Macaroni.js&quot;}]])
+
+(defn html-body []
+  [:body {:onload &quot;prettyPrint()&quot;}
+   [:header
+    [:h1 &quot;Macaroni&quot;]
+    [:i &quot;Pasta Short-circuited&quot;]
+    menu]
+   [:div#content
+    [:section
+     [:pre.prettyprint (hu/escape-html sample-js)]
+     [:div.demo
+      [:input#new-todo {:placeholder &quot;What needs to be done?&quot;}]
+      [:ul#todo-list]
+      [:script sample-js]]]
+    [:section
+     [:h2 &quot;API&quot;]
+     [:section
+       [:h3 &quot;Macaroni&quot;]
+       [:div.type [:span.grey &quot;Macaroni :: {} -&gt; Macaroni&quot;]]
+       [:pre.prettyprint &quot;var M = Macaroni({ todos: [] });&quot;]]
+      [:section
+       [:h3 &quot;on&quot;]
+       [:div.type
+        [:span.grey &quot;on :: String * jQuerySelector * jQuerySelector * (Event -&gt; {[]}) -&gt; undefined&quot;] [:br]
+        [:span.grey &quot;on :: String * jQuerySelector * (Event -&gt; {[]}) -&gt; undefined&quot;]]
+       [:pre.prettyprint on-sample]]
+      [:section
+       [:h3 &quot;before&quot;]
+       [:div.type
+        [:span.grey &quot;before :: Function * String * Function -&gt; undefined&quot;]]
+       [:pre.prettyprint before-sample]]
+      [:section
+       [:h3 &quot;after&quot;]
+       [:div.type
+        [:span.grey &quot;after :: String * ({} * {} -&gt; a) -&gt; undefined&quot;]]
+       [:pre.prettyprint after-sample]]]]])
+
+(defn main-html []
+  (h/html
+   [:html
+    (html-head)
+    (html-body)]))
+-->

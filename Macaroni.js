@@ -65,22 +65,3 @@ function Macaroni (initSt) {
 
 if (typeof module !== "undefined") module.exports = Macaroni;
 else this.Macaroni = Macaroni;
-
-
-
-/* //EXAMPLE
- *
- * with (Macaroni())
- *
- * (function () {
- *     //controller*model
- *     click(document, "#submit", function (e) {
- *         return { notes: _.concat('notes', {text: "hello"}) };
- *     });
- *
- *     //view*ui
- *     view(_.concat, function (arr, x) {
- *         $("#notes").append($("<div>").text(x.text));
- *     });
- * }());
- */

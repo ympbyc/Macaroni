@@ -1,0 +1,135 @@
+body {
+    background-color: #eae9e4;
+    font-size: 16px;
+    color: #262734;
+}
+
+header h1{
+    margin: 2px 2px -12px 2px;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 20px;
+    color: #262734;
+    border-bottom: 3px solid #e6c213;
+    font-size: 16px;
+    background-color: inherit;
+}
+
+section {
+    margin-bottom: 2em;
+    text-align: justify;
+   /* text-justify: distribute; */
+}
+
+hr {
+    border: none;
+    background-image: url("../images/hr.svg");
+    width: 540px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+#content h1 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+pre {
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+input {
+    margin-bottom: 6px;
+}
+
+i {
+    font-style: italic;
+}
+
+.code {
+    border: 1px solid #a3a3a3;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 1px 3px;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.grey {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-family: monospace;
+}
+
+.important {
+    border-bottom: 2px solid #CC6D0D;
+}
+
+.tough {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.demo {
+    border: 1px solid #a3a3a3;
+    border-radius: 4px;
+    padding: 4px;
+    font-family: sans-serif;
+}
+
+    .demo ul {
+        margin-bottom: 2px;
+    }
+
+.yellow {
+    color: #e6c213;
+}
+
+.orange {
+    color: #CC6D0D;
+}
+
+
+.center {
+    display: block;
+    margin: 0 auto;
+}
+
+#menu {
+    position:absolute;
+    right: 30px;
+    top: 48px;
+    margin-top: -1em;
+}
+
+#content {
+    margin: 80px auto;
+    padding: 20px 80px 20px;
+    max-width: 700px;
+    font-family: serif;
+}
+
+
+/* Google code prettifier */
+
+.prettyprint .com {
+    color: #a3a3a3;
+}
+
+.prettyprint .atv,
+.prettyprint .str {
+    color:  #e6c213;
+}

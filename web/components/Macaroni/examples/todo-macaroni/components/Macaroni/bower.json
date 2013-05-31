@@ -1,0 +1,23 @@
+{
+  "name": "Macaroni",
+  "version": "0.0.0",
+  "main": "Macaroni.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "underscore": "~1.4.4",
+    "underscore-fix": "git://github.com/ympbyc/underscore-fix.git"
+  },
+  "gitHead": "5f3d59ea1dee7a9897756de9bd78eb077a13839b",
+  "_id": "Macaroni@0.1.0",
+  "readme": "ERROR: No README.md file found!",
+  "description": "ERROR: No README.md file found!",
+  "commit": "5f3d59ea1dee7a9897756de9bd78eb077a13839b",
+  "repository": {
+    "type": "local-repo",
+    "path": "../../"
+  }
+}
